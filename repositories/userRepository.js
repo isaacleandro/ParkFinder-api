@@ -13,7 +13,6 @@ const UserRepository = {
         const result = await query(text, values);
         return result.rows[0];
     },
-   
 }
 
 export default UserRepository;
