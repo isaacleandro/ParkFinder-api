@@ -1,5 +1,10 @@
 import { query } from "../config/db.js";
 
+const VALUE_HOUR = 10;
+const LIMIT_HOUR = 1;
+const MINUTES_FRACTION = 15;
+const VALUE_FRACTION = 3;
+
 const SpacesRepository = {
     async getSpaces() {
         const text = 'SELECT * FROM spaces;';
@@ -21,7 +26,7 @@ const SpacesRepository = {
         return result.rows[0];
     },
 
-    async updateSpace(space) {
+    async updateSpace(id, space) {
         const text = 'UPDATE spaces SET name = $1, occuped = $2, floor = $3, lastEntry = $4 RETURNING *';
         const values = [space.name, space.occuped,  space.floor, space.lastEntry, id];
         const result = await query(text, values);
@@ -34,6 +39,12 @@ const SpacesRepository = {
         await query(text, values);
     },
 
+    async markEntry(id) {
+        const text = 'UPDATE spaces SET lastEntry = NOW(), occuped = true WHERE id = $1 RETURNING *';
+        const values = [id];
+        const result = await query(text, values);
+        return result.rows[0];
+    }
 };
 
 export default SpacesRepository;
