@@ -13,10 +13,10 @@ router.put('/:id', SpacesController.updateSpace);
 
 router.get('/:id', SpacesController.getSpaceById);
 
-router.get('/:id/get-price', (req, res) =>{})
+router.get('/:id/get-price', SpacesController.getPriceOfExit);
 
-router.post('/:id/entry', (req, res) =>{})
+router.post('/:id/entry', SpacesController.markEntry);
 
-router.post('/:id/exit', (req, res) =>{})
+router.post('/:id/exit', SpacesController.markExit);
 
 export default router;
